@@ -1,0 +1,5 @@
+projectKey=com.financial.analisys.financial_gui
+serverUrl=http://localhost:9000
+dashboardUrl=http://localhost:9000/dashboard/index/com.financial.analisys.financial_gui
+ceTaskId=AVaalGMrsjHO4suXC9Px
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AVaalGMrsjHO4suXC9Px
