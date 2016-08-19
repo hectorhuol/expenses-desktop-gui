@@ -7,6 +7,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 import com.financial.analisys.expenser.desktop.gui.view.FinancialGUI;
 
 public class Main {
+	
+	private Main() {}
+
 	public static void main(String[] args) throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException,
 			UnsupportedLookAndFeelException {

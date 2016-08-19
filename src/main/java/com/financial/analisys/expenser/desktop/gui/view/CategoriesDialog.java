@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -61,21 +59,18 @@ public class CategoriesDialog extends JDialog {
 		addCategory = new JButton("+");
 		addCategory.setFont(buttonFont);
 
-		addCategory.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String categoryName = categoryValueField.getText();
+		addCategory.addActionListener(e -> {
+			String categoryName = categoryValueField.getText();
 
-				if (categoryName == null || "".equals(categoryName)) {
-					JOptionPane.showMessageDialog(null,
-							"The category name is mandatory", "Error Message",
-							JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-
-				controller.createCategory(categoryName);
-				initData();
+			if (categoryName == null || "".equals(categoryName)) {
+				JOptionPane.showMessageDialog(null,
+						"The category name is mandatory", "Error Message",
+						JOptionPane.ERROR_MESSAGE);
+				return;
 			}
 
+			controller.createCategory(categoryName);
+			initData();
 		});
 
 		initData();

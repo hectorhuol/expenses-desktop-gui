@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.JTable;
@@ -14,8 +15,9 @@ import com.financial.analisys.expenser.desktop.gui.component.FinancialToggleButt
 import com.financial.analisys.expenser.desktop.gui.dto.GuiData;
 
 public class GUIUtils {
-	
-	private GUIUtils(){}
+
+	private GUIUtils() {
+	}
 
 	private static Border lineBorder = BorderFactory.createLineBorder(
 			Color.BLUE, 3);
@@ -40,19 +42,16 @@ public class GUIUtils {
 
 		} else {
 			for (int i = 0; i < 5; i++)
-				buttons.add(new FinancialToggleButton("" + i, "something" + i));
+				buttons.add(new FinancialToggleButton(Integer.toString(i),
+						"something" + i));
 		}
 
 		return buttons;
 	}
 
 	public static boolean isANumber(String expenseValue) {
-		try {
-			double value = Double.parseDouble(expenseValue);
-			return value>=0;
-		} catch (Exception e) {
-			return false;
-		}
+		return Pattern.compile("-?([0-9]+(\\.[0-9]+)?)").matcher(expenseValue)
+				.matches();
 	}
 
 	public static Border createTitledBorder(String label) {

@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Enumeration;
@@ -123,16 +121,9 @@ public class ExpensesDialog extends JDialog {
 		addPanel.add(cardsLabel);
 		addPanel.add(addCard);
 		southPanel.add(addPanel);
-		for (JToggleButton button : categoriesButtons) {
-			button.setFont(toggleFont);
-			categoriesPanel.add(button);
-			categoriesGroup.add(button);
-		}
-		for (JToggleButton button : cardsButtons) {
-			button.setFont(toggleFont);
-			cardsPanel.add(button);
-			cardsGroup.add(button);
-		}
+
+		getCardsAndCategories();
+
 		centerPanel.add(cardsPanel, BorderLayout.AFTER_LINE_ENDS);
 		centerPanel.add(categoriesPanel, BorderLayout.CENTER);
 		centerPanel.add(southPanel, BorderLayout.SOUTH);
@@ -144,46 +135,35 @@ public class ExpensesDialog extends JDialog {
 		categoriesDialog = new CategoriesDialog(controller);
 		cardsDialog = new CardsDialog(controller);
 
-		addCategory.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				categoriesDialog.createAndShowDialog();
-			}
+		addCategory.addActionListener(e -> {
+			categoriesDialog.createAndShowDialog();
 		});
-		addCard.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardsDialog.createAndShowDialog();
-			}
+		addCard.addActionListener(e -> {
+			cardsDialog.createAndShowDialog();
 		});
-		addExpense.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String expenseValue = expenseValueField.getText();
-				String selectedCategory = getSelectedButton(categoriesGroup);
-				String selectedCard = getSelectedButton(cardsGroup);
-				LocalDateTime date = (calendar.getDate() != null) ? LocalDateTime
-						.ofInstant(calendar.getDate().toInstant(),
-								ZoneId.systemDefault()) : null;
-
-				if (expenseValue == null || "".equals(expenseValue)
-						|| !GUIUtils.isANumber(expenseValue)) {
-					JOptionPane.showMessageDialog(null,
-							"The expense value should be a number",
-							"Error Message", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-
-				if (selectedCategory == null) {
-					JOptionPane.showMessageDialog(null,
-							"You should select a category", "Error Message",
-							JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-
-				controller.createExpense(expenseValue, selectedCategory,
-						selectedCard, date);
-
-				setVisible(false);
+		addExpense.addActionListener(e -> {
+			String expenseValue = expenseValueField.getText();
+			String selectedCategory = getSelectedButton(categoriesGroup);
+			String selectedCard = getSelectedButton(cardsGroup);
+			LocalDateTime date = (calendar.getDate() != null) ? LocalDateTime
+					.ofInstant(calendar.getDate().toInstant(),
+							ZoneId.systemDefault()) : null;
+			if (isExpenseValid(expenseValue)) {
+				JOptionPane.showMessageDialog(null,
+						"The expense value should be a number",
+						"Error Message", JOptionPane.ERROR_MESSAGE);
+				return;
 			}
+			if (selectedCategory == null) {
+				JOptionPane.showMessageDialog(null,
+						"You should select a category", "Error Message",
+						JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			controller.createExpense(expenseValue, selectedCategory,
+					selectedCard, date);
 
+			setVisible(false);
 		});
 
 		this.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -195,6 +175,24 @@ public class ExpensesDialog extends JDialog {
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 		this.setVisible(true);
+	}
+
+	private void getCardsAndCategories() {
+		for (JToggleButton button : categoriesButtons) {
+			button.setFont(toggleFont);
+			categoriesPanel.add(button);
+			categoriesGroup.add(button);
+		}
+		for (JToggleButton button : cardsButtons) {
+			button.setFont(toggleFont);
+			cardsPanel.add(button);
+			cardsGroup.add(button);
+		}
+	}
+
+	private boolean isExpenseValid(String expenseValue) {
+		return expenseValue == null || "".equals(expenseValue)
+				|| !GUIUtils.isANumber(expenseValue);
 	}
 
 	private String getSelectedButton(ButtonGroup group) {
@@ -211,22 +209,12 @@ public class ExpensesDialog extends JDialog {
 
 	public void initData() {
 		categoriesPanel.removeAll();
-		;
 		cardsPanel.removeAll();
 		expenseValueField.setText("");
 		categoriesButtons = GUIUtils.createToggleButtons(controller
 				.loadCategories());
 		cardsButtons = GUIUtils.createToggleButtons(controller.loadCards());
-		for (JToggleButton button : categoriesButtons) {
-			button.setFont(toggleFont);
-			categoriesPanel.add(button);
-			categoriesGroup.add(button);
-		}
-		for (JToggleButton button : cardsButtons) {
-			button.setFont(toggleFont);
-			cardsPanel.add(button);
-			cardsGroup.add(button);
-		}
+		getCardsAndCategories();
 		scrollPane.setViewportView(centerPanel);
 		this.pack();
 		this.setLocationRelativeTo(null);

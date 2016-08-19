@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -76,24 +74,21 @@ public class CardsDialog extends JDialog {
 		addCard = new JButton("+");
 		addCard.setFont(buttonFont);
 
-		addCard.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String cardName = cardValueField.getText();
-				boolean isCreditCard = creditButton.isSelected();
-				boolean isDebitCard = debitButton.isSelected();
+		addCard.addActionListener(e -> {
+			String cardName = cardValueField.getText();
+			boolean isCreditCard = creditButton.isSelected();
+			boolean isDebitCard = debitButton.isSelected();
 
-				if (cardName == null || "".equals(cardName)
-						|| (!isCreditCard && !isDebitCard)) {
-					JOptionPane.showMessageDialog(null,
-							"The card name and type are mandatory",
-							"Error Message", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-
-				controller.createCard(cardName, isCreditCard);
-				initData();
+			if (cardName == null || "".equals(cardName)
+					|| (!isCreditCard && !isDebitCard)) {
+				JOptionPane.showMessageDialog(null,
+						"The card name and type are mandatory",
+						"Error Message", JOptionPane.ERROR_MESSAGE);
+				return;
 			}
 
+			controller.createCard(cardName, isCreditCard);
+			initData();
 		});
 
 		initData();
@@ -114,7 +109,8 @@ public class CardsDialog extends JDialog {
 		cardsTable.setForeground(Color.BLUE);
 		cardsTable.setFont(new Font(FONT_FAMILY, Font.BOLD, 15));
 		cardsTable.getTableHeader().setForeground(Color.BLUE);
-		cardsTable.getTableHeader().setFont(new Font(FONT_FAMILY, Font.BOLD, 15));
+		cardsTable.getTableHeader().setFont(
+				new Font(FONT_FAMILY, Font.BOLD, 15));
 		scrollPane.setViewportView(cardsTable);
 		cardValueField.setText("");
 		creditButton.setSelected(false);

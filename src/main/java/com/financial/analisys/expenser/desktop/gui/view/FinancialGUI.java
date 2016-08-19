@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -87,10 +85,8 @@ public class FinancialGUI extends JFrame {
 
 		expensesDialog = new ExpensesDialog(controller);
 
-		addExpenseButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				expensesDialog.createAndShowDialog();
-			}
+		addExpenseButton.addActionListener(e -> {
+			expensesDialog.createAndShowDialog();
 		});
 
 		initData();
@@ -114,9 +110,10 @@ public class FinancialGUI extends JFrame {
 		expensesTable = GUIUtils.createTable(controller.loadExpenes());
 		expensesTable.setForeground(Color.RED);
 		expensesTable.setFont(new Font(FONT_FAMILY, Font.BOLD, 15));
-		expensesTable.getTableHeader().setFont(new Font(FONT_FAMILY, Font.BOLD, 15));
+		expensesTable.getTableHeader().setFont(
+				new Font(FONT_FAMILY, Font.BOLD, 15));
 		expensesTable.getTableHeader().setForeground(Color.RED);
-		scrollPane.setViewportView(expensesTable);		
+		scrollPane.setViewportView(expensesTable);
 
 		if (dayExpenses != null)
 			totalDayExpensesLabel.setText(dayExpenses.getTotal());

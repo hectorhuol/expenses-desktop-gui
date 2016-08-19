@@ -199,7 +199,7 @@ public class Controller {
 	public void createCard(String cardName, boolean isCreditCard) {
 		Card card = new Card();
 		card.setName(cardName.toUpperCase());
-		card.setType((isCreditCard) ? CardType.CREDIT : CardType.DEBIT);
+		card.setType(isCreditCard ? CardType.CREDIT : CardType.DEBIT);
 		cardsManager.createCard(card);
 		expensesDialog.initData();
 	}
