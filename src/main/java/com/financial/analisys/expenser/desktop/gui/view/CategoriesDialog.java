@@ -21,6 +21,8 @@ import com.financial.analisys.expenser.desktop.gui.util.GUIUtils;
 
 public class CategoriesDialog extends JDialog {
 
+	private static final String FONT_FAMILY = "Verdana";
+
 	private static final long serialVersionUID = 1L;
 
 	private JPanel categoryPanel;
@@ -39,9 +41,9 @@ public class CategoriesDialog extends JDialog {
 	}
 
 	public void createAndShowDialog() {
-		Font buttonFont = new Font("Verdana", Font.BOLD, 40);
-		Font dataFont = new Font("Verdana", Font.BOLD, 40);
-		Font labelFont = new Font("Verdana", Font.BOLD, 20);
+		Font buttonFont = new Font(FONT_FAMILY, Font.BOLD, 40);
+		Font dataFont = new Font(FONT_FAMILY, Font.BOLD, 40);
+		Font labelFont = new Font(FONT_FAMILY, Font.BOLD, 20);
 
 		categoryPanel = new JPanel(new GridLayout(0, 2));
 		categoryValueLabel = new JLabel("Category Name:");
@@ -63,7 +65,7 @@ public class CategoriesDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				String categoryName = categoryValueField.getText();
 
-				if (categoryName == null || categoryName.equals("")) {
+				if (categoryName == null || "".equals(categoryName)) {
 					JOptionPane.showMessageDialog(null,
 							"The category name is mandatory", "Error Message",
 							JOptionPane.ERROR_MESSAGE);
@@ -92,10 +94,10 @@ public class CategoriesDialog extends JDialog {
 	public void initData() {
 		categoriesTable = GUIUtils.createTable(controller.loadCategories());
 		categoriesTable.setForeground(Color.BLUE);
-		categoriesTable.setFont(new Font("Verdana", Font.BOLD, 15));
+		categoriesTable.setFont(new Font(FONT_FAMILY, Font.BOLD, 15));
 		categoriesTable.getTableHeader().setForeground(Color.BLUE);
 		categoriesTable.getTableHeader().setFont(
-				new Font("Verdana", Font.BOLD, 15));
+				new Font(FONT_FAMILY, Font.BOLD, 15));
 		scrollPane.setViewportView(categoriesTable);
 		categoryValueField.setText("");
 	}

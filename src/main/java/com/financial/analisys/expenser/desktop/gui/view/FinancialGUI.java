@@ -22,6 +22,8 @@ import com.financial.analisys.expenser.desktop.gui.util.GUIUtils;
 
 public class FinancialGUI extends JFrame {
 
+	private static final String FONT_FAMILY = "Verdana";
+
 	private static final long serialVersionUID = 1L;
 
 	private JPanel addExpensePanel;
@@ -49,9 +51,9 @@ public class FinancialGUI extends JFrame {
 	}
 
 	public void createAndShowGUI() {
-		Font buttonFont = new Font("Verdana", Font.BOLD, 100);
-		Font dataFont = new Font("Verdana", Font.BOLD, 40);
-		Font labelFont = new Font("Verdana", Font.BOLD, 20);
+		Font buttonFont = new Font(FONT_FAMILY, Font.BOLD, 100);
+		Font dataFont = new Font(FONT_FAMILY, Font.BOLD, 40);
+		Font labelFont = new Font(FONT_FAMILY, Font.BOLD, 20);
 
 		addExpensePanel = new JPanel(new GridLayout(0, 1));
 		addExpenseButton = new JButton("+");
@@ -111,8 +113,8 @@ public class FinancialGUI extends JFrame {
 
 		expensesTable = GUIUtils.createTable(controller.loadExpenes());
 		expensesTable.setForeground(Color.RED);
-		expensesTable.setFont(new Font("Verdana", Font.BOLD, 15));
-		expensesTable.getTableHeader().setFont(new Font("Verdana", Font.BOLD, 15));
+		expensesTable.setFont(new Font(FONT_FAMILY, Font.BOLD, 15));
+		expensesTable.getTableHeader().setFont(new Font(FONT_FAMILY, Font.BOLD, 15));
 		expensesTable.getTableHeader().setForeground(Color.RED);
 		scrollPane.setViewportView(expensesTable);		
 

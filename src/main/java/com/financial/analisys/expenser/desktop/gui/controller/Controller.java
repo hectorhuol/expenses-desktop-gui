@@ -185,7 +185,7 @@ public class Controller {
 		category = categoriesManager.getCategory(category);
 		expense.setCategory(category);
 
-		if (selectedCard != null && !selectedCard.equals("")) {
+		if (selectedCard != null && !"".equals(selectedCard)) {
 			Card card = new Card();
 			card.setCardId(selectedCard);
 			card = cardsManager.getCard(card);

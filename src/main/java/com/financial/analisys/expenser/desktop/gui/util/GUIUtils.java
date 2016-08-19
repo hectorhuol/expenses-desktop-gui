@@ -14,23 +14,23 @@ import com.financial.analisys.expenser.desktop.gui.component.FinancialToggleButt
 import com.financial.analisys.expenser.desktop.gui.dto.GuiData;
 
 public class GUIUtils {
+	
+	private GUIUtils(){}
 
 	private static Border lineBorder = BorderFactory.createLineBorder(
 			Color.BLUE, 3);
 	private static Font borderFont = new Font("Verdana", Font.BOLD, 20);
 
 	public static JTable createTable(GuiData guiData) {
-		JTable table = null;
 		if (guiData != null)
-			table = new JTable(guiData.getData(), guiData.getColumnNames());
+			return new JTable(guiData.getData(), guiData.getColumnNames());
 		else
-			table = new JTable(10, 3);
-		return table;
+			return new JTable(10, 3);
 	}
 
 	public static List<FinancialToggleButton> createToggleButtons(
 			GuiData guiData) {
-		List<FinancialToggleButton> buttons = new ArrayList<FinancialToggleButton>();
+		List<FinancialToggleButton> buttons = new ArrayList<>();
 		if (guiData != null) {
 			Object[][] data = guiData.getData();
 			for (int i = 0; i < data.length; i++) {
@@ -48,7 +48,7 @@ public class GUIUtils {
 
 	public static boolean isANumber(String expenseValue) {
 		try {
-			double value = Double.valueOf(expenseValue);
+			double value = Double.parseDouble(expenseValue);
 			return value>=0;
 		} catch (Exception e) {
 			return false;

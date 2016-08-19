@@ -31,6 +31,8 @@ import com.toedter.calendar.JDateChooser;
 
 public class ExpensesDialog extends JDialog {
 
+	private static final String FONT_FAMILY = "Verdana";
+
 	private static final long serialVersionUID = 1L;
 
 	private JPanel valuePanel;
@@ -62,7 +64,7 @@ public class ExpensesDialog extends JDialog {
 
 	private Controller controller;
 
-	private Font toggleFont = new Font("Verdana", Font.BOLD, 15);
+	private Font toggleFont = new Font(FONT_FAMILY, Font.BOLD, 15);
 
 	public ExpensesDialog(Controller controller) {
 		this.controller = controller;
@@ -71,10 +73,10 @@ public class ExpensesDialog extends JDialog {
 	public void createAndShowDialog() {
 		controller.setExpensesDialog(this);
 
-		Font buttonFont = new Font("Verdana", Font.BOLD, 40);
-		Font dataFont = new Font("Verdana", Font.BOLD, 40);
-		Font labelFont = new Font("Verdana", Font.BOLD, 20);
-		
+		Font buttonFont = new Font(FONT_FAMILY, Font.BOLD, 40);
+		Font dataFont = new Font(FONT_FAMILY, Font.BOLD, 40);
+		Font labelFont = new Font(FONT_FAMILY, Font.BOLD, 20);
+
 		calendarLabel = new JLabel("Expense Date =");
 		calendarLabel.setFont(labelFont);
 		calendar = new JDateChooser("yyyy/MM/dd", "####/##/##", '_');
@@ -161,7 +163,7 @@ public class ExpensesDialog extends JDialog {
 						.ofInstant(calendar.getDate().toInstant(),
 								ZoneId.systemDefault()) : null;
 
-				if (expenseValue == null || expenseValue.equals("")
+				if (expenseValue == null || "".equals(expenseValue)
 						|| !GUIUtils.isANumber(expenseValue)) {
 					JOptionPane.showMessageDialog(null,
 							"The expense value should be a number",

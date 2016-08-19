@@ -23,6 +23,8 @@ import com.financial.analisys.expenser.desktop.gui.util.GUIUtils;
 
 public class CardsDialog extends JDialog {
 
+	private static final String FONT_FAMILY = "Verdana";
+
 	private static final long serialVersionUID = 1L;
 
 	private JPanel cardPanel;
@@ -44,10 +46,10 @@ public class CardsDialog extends JDialog {
 	}
 
 	public void createAndShowDialog() {
-		Font buttonFont = new Font("Verdana", Font.BOLD, 40);
-		Font dataFont = new Font("Verdana", Font.BOLD, 40);
-		Font labelFont = new Font("Verdana", Font.BOLD, 20);
-		Font toggleFont = new Font("Verdana", Font.BOLD, 15);
+		Font buttonFont = new Font(FONT_FAMILY, Font.BOLD, 40);
+		Font dataFont = new Font(FONT_FAMILY, Font.BOLD, 40);
+		Font labelFont = new Font(FONT_FAMILY, Font.BOLD, 20);
+		Font toggleFont = new Font(FONT_FAMILY, Font.BOLD, 15);
 
 		cardPanel = new JPanel(new GridLayout(0, 2));
 		cardValueLabel = new JLabel("Card Name:");
@@ -80,7 +82,7 @@ public class CardsDialog extends JDialog {
 				boolean isCreditCard = creditButton.isSelected();
 				boolean isDebitCard = debitButton.isSelected();
 
-				if (cardName == null || cardName.equals("")
+				if (cardName == null || "".equals(cardName)
 						|| (!isCreditCard && !isDebitCard)) {
 					JOptionPane.showMessageDialog(null,
 							"The card name and type are mandatory",
@@ -110,9 +112,9 @@ public class CardsDialog extends JDialog {
 	public void initData() {
 		cardsTable = GUIUtils.createTable(controller.loadCards());
 		cardsTable.setForeground(Color.BLUE);
-		cardsTable.setFont(new Font("Verdana", Font.BOLD, 15));
+		cardsTable.setFont(new Font(FONT_FAMILY, Font.BOLD, 15));
 		cardsTable.getTableHeader().setForeground(Color.BLUE);
-		cardsTable.getTableHeader().setFont(new Font("Verdana", Font.BOLD, 15));
+		cardsTable.getTableHeader().setFont(new Font(FONT_FAMILY, Font.BOLD, 15));
 		scrollPane.setViewportView(cardsTable);
 		cardValueField.setText("");
 		creditButton.setSelected(false);
