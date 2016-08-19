@@ -85,9 +85,8 @@ public class FinancialGUI extends JFrame {
 
 		expensesDialog = new ExpensesDialog(controller);
 
-		addExpenseButton.addActionListener(e -> {
-			expensesDialog.createAndShowDialog();
-		});
+		addExpenseButton.addActionListener(e -> expensesDialog
+				.createAndShowDialog());
 
 		initData();
 

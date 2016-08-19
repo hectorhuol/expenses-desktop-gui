@@ -135,12 +135,9 @@ public class ExpensesDialog extends JDialog {
 		categoriesDialog = new CategoriesDialog(controller);
 		cardsDialog = new CardsDialog(controller);
 
-		addCategory.addActionListener(e -> {
-			categoriesDialog.createAndShowDialog();
-		});
-		addCard.addActionListener(e -> {
-			cardsDialog.createAndShowDialog();
-		});
+		addCategory.addActionListener(e -> categoriesDialog
+				.createAndShowDialog());
+		addCard.addActionListener(e -> cardsDialog.createAndShowDialog());
 		addExpense.addActionListener(e -> {
 			String expenseValue = expenseValueField.getText();
 			String selectedCategory = getSelectedButton(categoriesGroup);
@@ -148,16 +145,7 @@ public class ExpensesDialog extends JDialog {
 			LocalDateTime date = (calendar.getDate() != null) ? LocalDateTime
 					.ofInstant(calendar.getDate().toInstant(),
 							ZoneId.systemDefault()) : null;
-			if (isExpenseValid(expenseValue)) {
-				JOptionPane.showMessageDialog(null,
-						"The expense value should be a number",
-						"Error Message", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			if (selectedCategory == null) {
-				JOptionPane.showMessageDialog(null,
-						"You should select a category", "Error Message",
-						JOptionPane.ERROR_MESSAGE);
+			if (!validateExpenseData(expenseValue, selectedCategory)) {
 				return;
 			}
 			controller.createExpense(expenseValue, selectedCategory,
@@ -177,6 +165,26 @@ public class ExpensesDialog extends JDialog {
 		this.setVisible(true);
 	}
 
+	private boolean validateExpenseData(String expenseValue,
+			String selectedCategory) {
+		if (isExpenseNotValid(expenseValue)) {
+			JOptionPane.showMessageDialog(null,
+					"The expense value should be a number", "Error Message",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		if (isACategoryNotSelected(selectedCategory)) {
+			JOptionPane.showMessageDialog(null, "You should select a category",
+					"Error Message", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		return true;
+	}
+
+	private boolean isACategoryNotSelected(String selectedCategory) {
+		return selectedCategory == null;
+	}
+
 	private void getCardsAndCategories() {
 		for (JToggleButton button : categoriesButtons) {
 			button.setFont(toggleFont);
@@ -190,8 +198,8 @@ public class ExpensesDialog extends JDialog {
 		}
 	}
 
-	private boolean isExpenseValid(String expenseValue) {
-		return expenseValue == null || "".equals(expenseValue)
+	private boolean isExpenseNotValid(String expenseValue) {
+		return isACategoryNotSelected(expenseValue) || "".equals(expenseValue)
 				|| !GUIUtils.isANumber(expenseValue);
 	}
 
