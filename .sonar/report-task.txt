@@ -1,5 +1,5 @@
-projectKey=com.financial.analisys.financial_gui
+projectKey=com.financial.analisys.expenser.desktop.gui
 serverUrl=http://localhost:9000
-dashboardUrl=http://localhost:9000/dashboard/index/com.financial.analisys.financial_gui
-ceTaskId=AVaalGMrsjHO4suXC9Px
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AVaalGMrsjHO4suXC9Px
+dashboardUrl=http://localhost:9000/dashboard/index/com.financial.analisys.expenser.desktop.gui
+ceTaskId=AVa-P6s9jAacNkH4--7R
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AVa-P6s9jAacNkH4--7R
